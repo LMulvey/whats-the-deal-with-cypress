@@ -2,7 +2,7 @@
 
 /* BPM settings */
 const BASE_BPM = 111;
-const BPM_MODIFIER = 4;
+const BPM_MODIFIER = 3.7;
 
 /* god don't touch these lee */
 const TARGET_BPM = BASE_BPM * BPM_MODIFIER;
@@ -10,7 +10,7 @@ const ONE_BEAT = 60000 / TARGET_BPM;
 const HALF_BEAT = ONE_BEAT / 2;
 const QUARTER_BEAT = ONE_BEAT / 4;
 const THREE_QUARTER_BEAT = QUARTER_BEAT * 3;
-const PUSH_BEAT = ONE_BEAT * 1.5;
+const PUSH_BEAT = ONE_BEAT * 1.25;
 const TWO_BEATS = ONE_BEAT * 2;
 
 const playKey = (key, speed = ONE_BEAT) => {
@@ -20,7 +20,7 @@ const playKey = (key, speed = ONE_BEAT) => {
 };
 
 const gimmeFlourish = () => {
-  cy.get('#flourish-button').click();
+  cy.get('#flourish-button').click({ force: true });
 };
 
 context('Actions', () => {
@@ -29,12 +29,15 @@ context('Actions', () => {
   });
 
   it('plays the thing', () => {
-    cy.wait(200);
-    cy.get('body').trigger('keyup', { key: 'a' });
+    cy.wait(ONE_BEAT);
 
-    playKey('a', THREE_QUARTER_BEAT);
+    gimmeFlourish();
 
-    playKey('k', HALF_BEAT);
+    cy.wait(TWO_BEATS * 6);
+
+    playKey('a', PUSH_BEAT);
+
+    playKey('k', QUARTER_BEAT);
 
     playKey('a', PUSH_BEAT);
 
@@ -46,19 +49,21 @@ context('Actions', () => {
 
     playKey('r', TWO_BEATS);
 
-    playKey('f');
+    cy.wait(PUSH_BEAT);
 
     playKey('f', PUSH_BEAT);
 
-    playKey('d');
+    playKey('f', PUSH_BEAT);
 
     playKey('d', PUSH_BEAT);
 
-    playKey('e');
+    playKey('d', PUSH_BEAT);
 
     playKey('e', PUSH_BEAT);
 
-    playKey('s');
+    playKey('e', PUSH_BEAT);
+
+    playKey('s', PUSH_BEAT);
 
     playKey('a', HALF_BEAT);
 
@@ -76,19 +81,18 @@ context('Actions', () => {
 
     playKey('r', TWO_BEATS);
 
-    playKey('f');
+    cy.wait(PUSH_BEAT);
 
     playKey('f', PUSH_BEAT);
 
+    playKey('f', TWO_BEATS);
+
+    /* end of first section */
     gimmeFlourish();
 
-    cy.wait(790 + ONE_BEAT);
+    cy.wait(1250 + ONE_BEAT);
 
-    playKey('a', THREE_QUARTER_BEAT);
-
-    playKey('a', QUARTER_BEAT);
-
-    playKey('k', HALF_BEAT);
+    playKey('k', QUARTER_BEAT);
 
     playKey('a', PUSH_BEAT);
 
@@ -100,19 +104,19 @@ context('Actions', () => {
 
     playKey('r', TWO_BEATS);
 
-    playKey('f');
+    playKey('f', PUSH_BEAT);
 
     playKey('f', PUSH_BEAT);
 
-    playKey('d');
+    playKey('d', PUSH_BEAT);
 
     playKey('d', PUSH_BEAT);
 
-    playKey('e');
+    playKey('e', PUSH_BEAT);
 
     playKey('e', PUSH_BEAT);
 
-    playKey('s');
+    playKey('s', PUSH_BEAT);
 
     playKey('a', HALF_BEAT);
 
@@ -130,10 +134,12 @@ context('Actions', () => {
 
     playKey('r', TWO_BEATS);
 
-    playKey('f');
-
     playKey('f', PUSH_BEAT);
 
+    playKey('f', TWO_BEATS);
+
     gimmeFlourish();
+
+    cy.wait(1000 + ONE_BEAT);
   });
 });

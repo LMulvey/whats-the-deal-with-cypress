@@ -2,11 +2,12 @@ import React from 'react';
 
 import flourish1 from './flourish1.wav';
 import flourish2 from './flourish2.wav';
+import shaker from './shaker.wav';
 
 export default class Flourish extends React.Component {
   state = {
     timesPlayed: 0,
-    flourishes: [new Audio(flourish1), new Audio(flourish2)],
+    flourishes: [new Audio(shaker), new Audio(flourish1), new Audio(flourish2)],
   };
 
   playSound = () => {
