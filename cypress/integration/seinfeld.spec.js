@@ -2,7 +2,7 @@
 
 /* BPM settings */
 const BASE_BPM = 111;
-const BPM_MODIFIER = 3.7;
+const BPM_MODIFIER = 3.6;
 
 /* god don't touch these lee */
 const TARGET_BPM = BASE_BPM * BPM_MODIFIER;
@@ -22,16 +22,29 @@ const playKey = (key, speed = ONE_BEAT) => {
 const gimmeFlourish = () => {
   cy.get('#flourish-button').click({ force: true });
 };
+const toggleShaker = () => {
+  cy.get('#shaker-button').click({ force: true });
+};
+
+const bringItUp = () => {
+  cy.get('#increase-octave').click();
+};
+
+const bringItDown = () => {
+  cy.get('#increase-octave').click();
+};
 
 context('Actions', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/');
   });
 
+  after(() => toggleShaker());
+
   it('plays the thing', () => {
     cy.wait(ONE_BEAT);
 
-    gimmeFlourish();
+    toggleShaker();
 
     cy.wait(TWO_BEATS * 6);
 
@@ -104,6 +117,8 @@ context('Actions', () => {
 
     playKey('r', TWO_BEATS);
 
+    cy.wait(PUSH_BEAT);
+
     playKey('f', PUSH_BEAT);
 
     playKey('f', PUSH_BEAT);
@@ -134,12 +149,16 @@ context('Actions', () => {
 
     playKey('r', TWO_BEATS);
 
+    cy.wait(PUSH_BEAT);
+
     playKey('f', PUSH_BEAT);
 
     playKey('f', TWO_BEATS);
 
     gimmeFlourish();
 
-    cy.wait(1000 + ONE_BEAT);
+    cy.wait(200 + ONE_BEAT);
+
+    gimmeFlourish();
   });
 });
