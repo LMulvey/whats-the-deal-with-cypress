@@ -72,12 +72,12 @@ class SlapBass extends React.Component {
 
     return (
       <React.Fragment>
-        <button class="mx-2" id="increase-octave" onClick={this.increaseOctave}>
+        {/* <button class="mx-2" id="increase-octave" onClick={this.increaseOctave}>
           <h4>+</h4>
         </button>
         <button class="mx-2" id="decrease-octave" onClick={this.decreaseOctave}>
           <h4>-</h4>
-        </button>
+        </button> */}
         <SoundfontProvider
           audioContext={this.props.audioContext}
           instrumentName={this.state.config.instrumentName}
